@@ -2,31 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 
-const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT;
+export default function FAQ(instance) {
+  if (instance === null) { return (<div>Loading</div>); }
+  const faqs = instance.faqs;
+  // const [faqs, setFaqs] = useState([]);
 
-export default function FAQ() {
-  const [faqs, setFaqs] = useState([]);
+  // useEffect(() => {
+  //   const fetchFaqs = async () => {
+  //     try {
+  //       const response = await fetch(`${API_ENDPOINT}/api/vnext/faqs`);
+  //       const data = await response.json();
 
-  useEffect(() => {
-    const fetchFaqs = async () => {
-      try {
-        const response = await fetch(`${API_ENDPOINT}/api/vnext/faqs`);
-        const data = await response.json();
+  //       // Assuming the format of FAQ data will be within the 'rules' attribute
+  //       const faqs = data.rules.map(rule => ({
+  //         question: rule.text,
+  //         answer: rule.description || "No detailed description available."
+  //       }));
 
-        // Assuming the format of FAQ data will be within the 'rules' attribute
-        const faqs = data.rules.map(rule => ({
-          question: rule.text,
-          answer: rule.description || "No detailed description available."
-        }));
+  //       setFaqs(faqs);
+  //     } catch (error) {
+  //       console.error('Error fetching the FAQs:', error);
+  //     }
+  //   };
 
-        setFaqs(faqs);
-      } catch (error) {
-        console.error('Error fetching the FAQs:', error);
-      }
-    };
-
-    fetchFaqs();
-  }, []);
+  //   fetchFaqs();
+  // }, []);
 
   return (
     <div className="divide-y divide-gray-400/10">
