@@ -1,10 +1,10 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT;
 
 const header_links = [
-    { href: `${API_ENDPOINT}/vegans`, label: 'Trending' },
-    { href: `${API_ENDPOINT}/public/local`, label: 'New' },
-    { href: `https://www.patreon.com/veganismsocial`, label: 'Patreon' },
-    { href: `https://uptime.veganism.social`, label: 'Uptime' },
+    { href: `${API_ENDPOINT}/vegans`, label: 'Trending', target: '_blank' },
+    { href: `${API_ENDPOINT}/public/local`, label: 'New', target: '_blank' },
+    { href: `https://linktr.ee/poz.world`, label: 'LinkTr.ee', target: '_blank' },
+    { href: `https://status.poz.world`, label: 'Servers\' Status', target: '_blank' },
 ]
 
 const supplementary_links = [
@@ -14,7 +14,7 @@ const supplementary_links = [
 ]
 
 const supplementary_links_2 = [
-    { href: `https://github.com/ryan-augustinsky/landing`, label: 'Source Code' },
+    { href: `https://github.com/justinwritescode/mastodon/tree/poz.world`, label: 'Source Code (Customized Mastodon)' },
     { href: `https://fedipact.veganism.social/`, label: 'Fedipact' },
     { href: `https://www.reddit.com/r/VeganismSocial/`, label: 'Subreddit' },
 ]
@@ -32,8 +32,8 @@ const linkClasses = 'hover:text-blue-700 dark:hover:text-blue-300'
 const linkRow = (links) => {
     return (
         <div key={1} className="justify-center flex-1 flex gap-8 lg:gap-12 font-bold text-xs sm:text-sm lg:text-md my-6">
-            {links.map(({ href, label }) => (
-                <a key={label} href={href} className={linkClasses}>
+            {links.map(({ href, label, target }) => (
+                <a key={label} href={href} className={linkClasses} target={target}>
                     <span>{label}</span>
                 </a>
             ))}
