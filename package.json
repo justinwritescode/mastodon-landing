@@ -20,9 +20,9 @@
     "serve": "^14.2.3"
   },
   "scripts": {
-    "start": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 react-scripts start",
-    "serve": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 serve -s build",
-    "build": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 react-scripts build",
+    "start": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 CI=false react-scripts start",
+    "serve": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 CI=false serve -s build",
+    "build": "REACT_APP_API_ENDPOINT=http://pozz.me:3000 PORT=5002 CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
