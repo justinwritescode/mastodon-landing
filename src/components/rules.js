@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-
-function Rules(instance) {
+function Rules(instance, expanded, setExpanded) {
     
-    const [expanded, setExpanded] = useState(null);
     if (instance === null) { return (<div>Loading</div>); }
 
     const toggleExpanded = (index) => {
@@ -23,7 +20,7 @@ function Rules(instance) {
                         </span>
                         <span className="block text-lg dark:text-white tracking-widest leading-8">{rule.text}</span>
                         <div className={`accordion-content ${expanded === index ? 'expanded' : ''}`}>
-                            <span className="block text-md dark:text-gray-400 pt-2">{rule.hint}</span>
+                            <span className="block text-md dark:text-gray-400 pt-2" dangerouslySetInnerHTML={{__html: rule.hint}} />
                         </div>
                     </li>
                 ))}

@@ -9,6 +9,7 @@ import {
 
 import Layout from './components/layout';
 import Root from './routes/root';
+import Privacy from './routes/privacy';
 
 const router = createBrowserRouter([
     {
@@ -16,8 +17,8 @@ const router = createBrowserRouter([
         element: <Root />
     },
     {
-        path: '/about',
-        element: <Root />
+        path: '/privacy',
+        element: <Privacy />
     },
 ]);
 

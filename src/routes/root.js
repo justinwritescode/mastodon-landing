@@ -8,7 +8,11 @@ import Rules from '../components/rules';
 import InstanceStats from '../components/instanceStats';
 import AccountStacks from '../components/accountStacks';
 import MembersList from '../components/membersList';
+import Loading from '../components/loading';
+import fetchExtendedDescription from '../lib/fetchExtendedDescription';
+import fetchDirectory from '../lib/fetchDirectory';
 import "./accordion.css";
+import { fetchInstance, fetchInstanceV2 } from '../lib/fetchInstance';
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
@@ -17,33 +21,18 @@ export default function Root() {
     const [directoryLimit, setDirectoryLimit] = useState(20);
     const [slideshows, setSlideshows] = useState([]);
     const [instance, setInstance] = useState(null);
+    const [instancev2, setInstanceV2] = useState(null);
+    const [extendedDescription, setExtendedDescription] = useState(null);
+    const [expanded, setExpanded] = useState(null);
 
     useEffect(() => {
-        axios.get(`${API_ENDPOINT}/api/v1/landing`)
-            .then(res => {
-                // console.log(res);
-                setDirectory(structuredClone(res.data));
-                // set featured to 5 random accounts
-                let random_set = structuredClone(res.data).sort(() => Math.random() - Math.random())
-                let new_slideshows = [];
-                let slideshow_length = Math.floor(random_set.length / 5);
-                for (let i = 0; i < 5; i++) {
-                    new_slideshows.push(random_set.slice(i * slideshow_length, (i + 1) * slideshow_length));
-                }
-                setSlideshows(new_slideshows);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        fetchDirectory(setDirectory, setSlideshows);
 
-        axios.get(`${API_ENDPOINT}/api/v1/instance`)
-            .then(res => {
-                // console.log(res);
-                setInstance(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        fetchInstance(setInstance);
+
+        fetchInstanceV2(setInstanceV2);
+
+        fetchExtendedDescription(setExtendedDescription);
     }, []);
 
     // every 10 seconds, rotate the slideshows
@@ -62,14 +51,14 @@ export default function Root() {
         return () => clearInterval(interval);
     }, [slideshows]);
 
-    return (
+    return (instance && instancev2 && directory && slideshows && extendedDescription) ? (
         <>
             <GridBackground />
             <div className="">
                 <div className="flex">
                     <div className="flex-auto my-auto">
                         <h1 className="title pb-8 font-bold">
-                            The first federated social media hub for POZ fetishists by POZ fetishists!
+                            {instancev2.tagline}
                         </h1>
 
                         <a href={`${API_ENDPOINT}/auth/sign_up`} type="button" className="inline-flex button mr-4 bg-indigo-600 hover:bg-indigo-700 text-white animate-wiggle">
@@ -85,7 +74,8 @@ export default function Root() {
 
                 <div className="flex flex-col lg:flex-row gap-y-12 my-16">
                     <div className="flex-1 max-w-2xl xl:max-w-none">
-                        <h2 className="subtitle">
+                        <div class="text-md markdown" dangerouslySetInnerHTML={{ __html: extendedDescription.content }} />
+                        {/* <h2 className="subtitle">
                             Made by POZ fetishists and BUGCHASERS, not billionaires
                         </h2>
                         <p className="text-md font-bold mb-4">
@@ -97,7 +87,7 @@ export default function Root() {
 
                         <p className="text-md">
                             There are no fees to use POZ.world. We want you to be our newest friend. Let's make POZ babies together! Generous crowd-funders pay for our server costs.
-                        </p>
+                        </p> */}
                     </div>
                     <div className="flex flex-shrink mx-auto xl:flex-1 justify-center lg:justify-end">
                         {InstanceStats(instance)}
@@ -106,10 +96,10 @@ export default function Root() {
 
                 {MembersList(directory, directoryLimit, setDirectoryLimit, API_ENDPOINT)}
 
-                {Rules(instance)}
+                {Rules(instance, expanded, setExpanded)}
 
                 {FAQ(instance)}
             </div>
         </>
-    );
+    ) : (new Loading());
 }

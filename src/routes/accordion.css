@@ -5,5 +5,5 @@
 }
 
 .accordion-content.expanded {
-  max-height: 200px; /* Adjust this value based on the actual content height */
+  max-height: 500px; /* Adjust this value based on the actual content height */
 }

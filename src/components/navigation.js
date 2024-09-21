@@ -1,7 +1,7 @@
 const API_ENDPOINT=process.env.REACT_APP_API_ENDPOINT;
 
 const header_links = [
-    { href: `${API_ENDPOINT}/vegans`, label: 'Trending', target: '_blank' },
+    { href: `${API_ENDPOINT}/explore`, label: 'Explore', target: '_blank' },
     { href: `${API_ENDPOINT}/public/local`, label: 'New', target: '_blank' },
     { href: `https://linktr.ee/poz.world`, label: 'LinkTr.ee', target: '_blank' },
     { href: `https://status.poz.world`, label: 'Servers\' Status', target: '_blank' },

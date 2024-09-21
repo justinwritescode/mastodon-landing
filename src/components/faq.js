@@ -25,7 +25,7 @@ export default function FAQ(instance) {
                     </span>
                   </Disclosure.Button>
                 </dt>
-                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                <Disclosure.Panel as="dd" className="mt-2 pr-12 markdown">
                   <p className="text-md leading-7 dark:text-white my-4" dangerouslySetInnerHTML={{__html: faq.answer}} />
                 </Disclosure.Panel>
               </>
